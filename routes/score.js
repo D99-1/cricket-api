@@ -109,7 +109,7 @@ router.get('/', cache('2 minutes'), apiRequestLimiter, function(req, res) {
             commentary: commentary || "Data Not Found"
         });
 
-        res.send(JSON.stringify(livescore, null, 4));
+        res.json(JSON.stringify(livescore, null, 4));
 
     }).catch(function(error) {
         if (!error.response) {
