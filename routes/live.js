@@ -11,7 +11,15 @@ const matchdata = require('../utlis/app.json');
 const { dummydata } = require('../utlis/error.js');
 const { errormsg } = require('../utlis/msg.js');
 
-
+const apiRequestLimiter = rateLimit({
+    windowMs: 1 * 60 * 1000,
+    max: 40,
+    handler: function (req, res) {
+        return res.status(429).json(
+          dummydata()
+        )
+    }
+})
 
 router.get('/', cache('2 minutes'), apiRequestLimiter, function(req, res) {
     res.header('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
